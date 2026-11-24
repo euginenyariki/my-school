@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Schola — School Operations</title>
+  <meta name="description" content="A lightweight school operations dashboard for students, attendance, fees and timetables." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">S</span><div><strong>Schola</strong><small>School operations</small></div></div>
+      <nav id="nav">
+        <button class="nav-item active" data-view="overview"><span>◫</span> Overview</button>
+        <button class="nav-item" data-view="students"><span>◉</span> Students</button>
+        <button class="nav-item" data-view="attendance"><span>◷</span> Attendance</button>
+        <button class="nav-item" data-view="fees"><span>◇</span> Fees</button>
+        <button class="nav-item" data-view="timetable"><span>▦</span> Timetable</button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="term">Term 2 · 2026</div>
+        <button id="resetBtn" class="ghost-btn">Reset demo data</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><h1 id="pageTitle">Overview</h1><p id="pageSub">A clear view of the school today.</p></div>
+        <div class="top-actions">
+          <input id="search" class="search" type="search" placeholder="Search students…" />
+          <button id="themeBtn" class="icon-btn" title="Toggle dark mode">◐</button>
+          <button id="addBtn" class="primary-btn">+ Add student</button>
+        </div>
+      </header>
+
+      <section id="view-overview" class="view active">
+        <div class="stats" id="stats"></div>
+        <div class="grid-2">
+          <div class="card"><div class="card-head"><h2>Attendance this week</h2><span class="muted">Last 7 days</span></div><div id="attendanceChart" class="chart"></div></div>
+          <div class="card"><div class="card-head"><h2>Fees snapshot</h2><span class="muted">Outstanding balances</span></div><div id="feeBreakdown" class="fee-list"></div></div>
+        </div>
+        <div class="card"><div class="card-head"><h2>Recent students</h2><button class="link-btn" data-goto="students">View all →</button></div><div id="recentStudents" class="table-wrap"></div></div>
+      </section>
+
+      <section id="view-students" class="view">
+        <div class="card">
+          <div class="card-head"><h2>Student registry</h2><div class="filters" id="classFilters"></div></div>
+          <div id="studentTable" class="table-wrap"></div>
+        </div>
+      </section>
+
+      <section id="view-attendance" class="view">
+        <div class="card"><div class="card-head"><h2>Attendance register</h2><span class="muted">Tap a student to toggle present / absent</span></div><div id="attendanceTable" class="table-wrap"></div></div>
+      </section>
+
+      <section id="view-fees" class="view">
+        <div class="card"><div class="card-head"><h2>Fee ledger</h2><button id="exportBtn" class="ghost-btn">Export CSV</button></div><div id="feeTable" class="table-wrap"></div></div>
+      </section>
+
+      <section id="view-timetable" class="view">
+        <div class="card"><div class="card-head"><h2>Weekly timetable</h2><span class="muted">Form 2A</span></div><div id="timetable" class="timetable"></div></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-box">
+      <div class="modal-head"><h2 id="modalTitle">Add student</h2><button id="closeModal" class="icon-btn">×</button></div>
+      <form id="studentForm">
+        <label>Full name<input id="fName" required placeholder="e.g. Amina Yusuf" /></label>
+        <div class="form-row">
+          <label>Class<select id="fClass"><option>Form 1A</option><option>Form 2A</option><option>Form 3B</option><option>Form 4A</option></select></label>
+          <label>Admission no.<input id="fAdm" required placeholder="ADM-001" /></label>
+        </div>
+        <div class="form-row">
+          <label>Guardian<input id="fGuardian" required placeholder="Guardian name" /></label>
+          <label>Phone<input id="fPhone" required placeholder="0712 345 678" /></label>
+        </div>
+        <div class="form-row">
+          <label>Term fee (KES)<input id="fFee" type="number" min="0" value="18000" /></label>
+          <label>Paid (KES)<input id="fPaid" type="number" min="0" value="0" /></label>
+        </div>
+        <div class="modal-actions"><button type="button" id="cancelBtn" class="ghost-btn">Cancel</button><button class="primary-btn" type="submit">Save student</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
